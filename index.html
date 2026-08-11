@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نتائج البكالوريا 2026 — الدورة العادية</title>
+<meta name="description" content="بوابة الاستعلام عن نتائج امتحان شهادة البكالوريا 2026، الدورة العادية.">
+<link rel="icon" href="assets/logo.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500;700&family=Tajawal:wght@400;500;700;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="paper-grain" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <img src="assets/logo.png" alt="" class="brand-seal" aria-hidden="true">
+      <div class="brand-text">
+     
+        <span class="brand-title">بوابة نتائج البكلوريا</span>
+      </div>
+    </div>
+    <a href="top.html" class="btn-top" title="قائمة الأوائل حسب الشعبة">
+       <span class="btn-top-icon">🏆</span>
+      <span class="btn-top-label">الأوائل</span>
+      <a href="session.html" class ="btn-session">الدورة التكملية2026</a>
+    </a>
+    <div class="session-tag">
+      <span class="session-year">2026</span>
+      <span class="session-label">الدورة العادية</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero" id="hero">
+    <div class="hero-inner">
+      <h1 class="hero-title">استعلم عن نتيجتك</h1>
+      <p class="hero-sub">أدخل رقم الباكالوريا الخاص بك للاطلاع على نتيجة الدورة العادية 2026 .</p>
+
+      <form id="search-form" class="search-card" autocomplete="off">
+        <div class="tabs" role="tablist" aria-label="طريقة البحث">
+          <button type="button" class="tab active" data-mode="numbac" role="tab" aria-selected="true">رقم الباكالوريا</button>
+          <button type="button" class="tab" data-mode="name" role="tab" aria-selected="false">الاسم الكامل</button>
+        </div>
+
+        <div class="field-row">
+          <input
+            id="search-input"
+            type="text"
+            inputmode="numeric"
+            placeholder="مثال: 12345"
+            aria-label="رقم الباكالوريا"
+            required>
+          <button type="submit" class="btn-search">
+            <span>بحث</span>
+          </button>
+        </div>
+        <p class="field-hint" id="field-hint">رقم الباكالوريا مكوّن من 5 أرقام فقط، ويوجد على استدعاء الامتحان.</p>
+      </form>
+
+      <p class="status-line" id="status-line" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section class="result-zone" id="result-zone" hidden>
+    <div class="result-card" id="result-card">
+      <!-- populated by js -->
+    </div>
+  </section>
+
+  <section class="about-strip">
+    <div class="about-inner" id="about-stats">
+      <div class="about-item">
+        <span class="about-num" id="stat-total">—</span>
+        <span class="about-label">مترشح ومترشحة مسجلون في قاعدة البيانات</span>
+      </div>
+      <div class="about-item">
+        <span class="about-num" id="stat-success">—</span>
+        <span class="about-label">نسبة النجاح في الدورة العادية</span>
+      </div>
+      <div class="about-item">
+        <span class="about-num" id="stat-wilayas">—</span>
+        <span class="about-label">ولاية مغطاة عبر جميع مراكز الامتحان</span>
+      </div>
+      <div class="about-item">
+        <span class="about-num" id="stat-top">—</span>
+        <span class="about-label">أعلى معدل وطني في هذه الدورة</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>هذه بوابة استعلام غير رسمية أُعدّت لعرض نتائج البكالوريا 2026 اعتمادًا على ملف النتائج المزوَّد. لأي اعتماد رسمي، يُرجى الرجوع إلى الجهات المختصة بوزارة التهذيب الوطني.</p>
+</footer>
+<!-- مكتبة القصاصات الملونة (Confetti) -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
