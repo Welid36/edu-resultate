@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>قائمة الأوائل — نتائج البكالوريا 2026</title>
+<meta name="description" content="أفضل ثلاثة طلاب في كل شعبة على المستوى الوطني — امتحان شهادة البكالوريا 2026، الدورة العادية.">
+<link rel="icon" href="assets/logo.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@500;700&family=Tajawal:wght@400;500;700;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="paper-grain" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <img src="assets/logo.png" alt="" class="brand-seal" aria-hidden="true">
+      <div class="brand-text">
+        <span class="brand-title">بوابة نتائج البكالوريا</span>
+      </div>
+    </div>
+    <a href="index.html" class="btn-top" title="العودة إلى صفحة البحث">
+      <span class="btn-top-icon">🔎</span>
+      <span class="btn-top-label">البحث عن نتيجة</span>
+    </a>
+    <div class="session-tag">
+      <span class="session-year">2026</span>
+      <span class="session-label">الدورة العادية</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="top-hero">
+    <div class="top-hero-inner">
+      <h1 class="top-hero-title">🏆 قائمة الأوائل</h1>
+      <p class="top-hero-sub">أفضل ثلاثة طلاب وطنيًا في كل شعبة، من بين الناجحين في الدورة العادية 2026.</p>
+      <p class="status-line" id="status-line" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section class="top-board" id="top-board" aria-live="polite">
+    <!-- تُملأ عبر js/top.js -->
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>هذه بوابة استعلام غير رسمية أُعدّت لعرض نتائج البكالوريا 2026 اعتمادًا على ملف النتائج المزوَّد. لأي اعتماد رسمي، يُرجى الرجوع إلى الجهات المختصة بوزارة التهذيب الوطني.</p>
+</footer>
+
+<script src="js/top.js"></script>
+</body>
+</html>
