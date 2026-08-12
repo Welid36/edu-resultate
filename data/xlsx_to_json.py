@@ -10,17 +10,17 @@ xlsx_to_json.py
     python3 xlsx_to_json.py input.xlsx output.json
 
 أعمدة ملف الإكسل المتوقعة (أسماء الرؤوس في الصف الأول):
-    noreg        رقم التسجيل (اختياري، رقم تسلسلي)on
+    noreg        رقم التسجيل (اختياري، رقم تسلسلي)
     wilayaFr     الولاية بالفرنسية
     wilayaAr     الولاية بالعربية
     centreFr     مركز الامتحان بالفرنسية
     centreAr     مركز الامتحان بالعربية
-    etabFr       المؤسسة بالفرنسية
-    etabAr       المؤسسة بالعربية
+    etabFr       المؤسسة بالفرنسية (اختياري)
+    etabAr       المؤسسة بالعربية (اختياري)
     numbac       رقم الباكالوريا
     serieCode    رمز الشعبة (SN, LM, LO, M, LA, TS, TM ...)
-    serieFr      الشعبة بالفرنسية
-    serieAr      الشعبة بالعربية
+    serieFr      الشعبة بالفرنسية (اختياري)
+    serieAr      الشعبة بالعربية (اختياري)
     nomFr        الاسم الكامل بالفرنسية
     nomAr        الاسم الكامل بالعربية
     lieuFr       مكان الازدياد بالفرنسية
@@ -31,6 +31,9 @@ xlsx_to_json.py
 يمكن أن تختلف أسماء الرؤوس قليلاً (حروف كبيرة/صغيرة، مسافات، فواصل سفلية) —
 السكربت يحاول مطابقتها تلقائيًا عبر HEADER_ALIASES أدناه. إن لم يجد عمودًا
 مطلوبًا سيوقفك برسالة واضحة تخبرك بالعمود الناقص.
+
+ملاحظة: عمودا etabFr/etabAr (المؤسسة) اختياريان. إن لم يوجدا في الملف
+(كما هو الحال في ملفات RESULTATS_BAC_SESSION_COMPL) سيُترك حقل المؤسسة فارغًا.
 """
 
 import sys
@@ -69,8 +72,10 @@ HEADER_ALIASES = {
 # الملفات — هذا مقصود، السكربت يملأ العمودين من نفس المصدر إذا لم يوجد كل
 # منهما على حدة.
 
+# الأعمدة الإلزامية فقط. etabFr/etabAr و serieFr/serieAr و noreg اختيارية:
+# إن لم توجد، تُترك فارغة أو تُشتق تلقائيًا (انظر SERIE_CODE_TABLE أدناه).
 REQUIRED = [
-    "wilayaFr", "wilayaAr", "centreFr", "centreAr", "etabFr", "etabAr",
+    "wilayaFr", "wilayaAr", "centreFr", "centreAr",
     "numbac", "serieCode", "nomFr", "nomAr",
     "lieuFr", "lieuAr", "moy", "decision",
 ]
@@ -159,10 +164,11 @@ def to_num(v):
 
 def convert(input_path: Path, output_path: Path):
     print(f"جارٍ قراءة {input_path} ...")
-    df = pd.read_excel("data/RESULTATS_BAC_SC_2025_7072_Ap_CT.xlsx")  # كل شيء كنص أولًا، نحوّل moy لاحقًا
+    df = pd.read_excel(input_path)
     print(f"عدد الصفوف: {len(df)}")
 
     colmap = build_column_map(df.columns)
+    has_etab = "etabFr" in colmap and "etabAr" in colmap
 
     wilaya_idx = DictIndex()
     centre_idx = DictIndex()
@@ -182,7 +188,12 @@ def convert(input_path: Path, output_path: Path):
 
         wilaya_i = wilaya_idx.get((to_str(row[colmap["wilayaFr"]]), to_str(row[colmap["wilayaAr"]])))
         centre_i = centre_idx.get((to_str(row[colmap["centreFr"]]), to_str(row[colmap["centreAr"]])))
-        etab_i = etab_idx.get((to_str(row[colmap["etabFr"]]), to_str(row[colmap["etabAr"]])))
+
+        if has_etab:
+            etab_i = etab_idx.get((to_str(row[colmap["etabFr"]]), to_str(row[colmap["etabAr"]])))
+        else:
+            # لا يوجد عمود مؤسسة في هذا الملف — نتركه فارغًا لكل الصفوف
+            etab_i = etab_idx.get(("", ""))
 
         code = to_str(row[colmap["serieCode"]])
         if "serieFr" in colmap and "serieAr" in colmap:
@@ -247,6 +258,8 @@ def convert(input_path: Path, output_path: Path):
     print(f"  - عدد النتائج المحوّلة: {len(rows)}")
     if skipped:
         print(f"  - عدد الصفوف المتجاهلة (بدون رقم باكالوريا): {skipped}")
+    if not has_etab:
+        print("  - تنبيه: لا يوجد عمود مؤسسة (etabFr/etabAr) في هذا الملف، تُرك فارغًا.")
     print(f"  - عدد الولايات: {len(wilaya_idx.values)}")
     print(f"  - عدد مراكز الامتحان: {len(centre_idx.values)}")
     print(f"  - عدد المؤسسات: {len(etab_idx.values)}")

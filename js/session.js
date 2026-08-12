@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  const DATA_URL = "data/RESULTATS_BAC_SC_2025_7072_Ap_CT.json";
+  const DATA_URL = "data/output.json";
 
   const els = {
     form: document.getElementById("search-form"),
