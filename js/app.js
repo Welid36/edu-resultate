@@ -8,7 +8,7 @@
   "use strict";
 
   const DATA_URL = "data/results.json";
- ;
+   ;
 
   const els = {
     form: document.getElementById("search-form"),
